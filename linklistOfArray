@@ -1,0 +1,153 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *head = NULL;
+
+
+// INSERT FUNCTION
+void insert(int value)
+{
+    struct Node *newNode, *temp;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        temp = head;
+
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+    }
+
+    printf("Node inserted successfully.\n");
+}
+
+
+// DELETE FUNCTION
+void deleteNode(int value)
+{
+    struct Node *temp = head;
+    struct Node *prev = NULL;
+
+    if (head == NULL)
+    {
+        printf("List is empty.\n");
+        return;
+    }
+
+    // If first node contains the value
+    if (head->data == value)
+    {
+        head = head->next;
+        free(temp);
+
+        printf("Node deleted successfully.\n");
+        return;
+    }
+
+    // Search for the node
+    while (temp != NULL && temp->data != value)
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // Value not found
+    if (temp == NULL)
+    {
+        printf("Value not found.\n");
+        return;
+    }
+
+    // Delete the node
+    prev->next = temp->next;
+    free(temp);
+
+    printf("Node deleted successfully.\n");
+}
+
+
+// DISPLAY FUNCTION
+void display()
+{
+    struct Node *temp = head;
+
+    if (head == NULL)
+    {
+        printf("List is empty.\n");
+        return;
+    }
+
+    printf("Linked List: ");
+
+    while (temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL\n");
+}
+
+
+// MAIN FUNCTION
+int main()
+{
+    int choice, value;
+
+    while (1)
+    {
+        printf("\n--- Singly Linked List ---\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+
+                insert(value);
+                break;
+
+            case 2:
+                printf("Enter value to delete: ");
+                scanf("%d", &value);
+
+                deleteNode(value);
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                return 0;
+
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+}
