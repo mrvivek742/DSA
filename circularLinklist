@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node *next;
+    
+};
+struct Node *createHeader(){
+    struct Node *header;
+    header= (struct Node* )malloc (sizeof(struct Node));
+    header->data=0;
+    header->next =header;
+    return header;
+    
+}
+void insert (struct Node *header ,int value){
+    struct Node *newNode;
+    newNode= (struct Node* )malloc(sizeof(struct Node));
+    newNode->data=value;
+    newNode->next=header->next;
+    header->next=newNode;
+    header->data++;
+}
+void printList(struct Node* header){
+    struct Node* temp = header-> next;
+    printf("list content: ");
+    while(temp != header){
+        printf("%d",temp->data);
+        if (temp->next!=header){
+            printf("->");
+        }
+        temp=temp->next;
+        
+    }
+    printf("\n");
+}
+
+int main()
+{
+    //int n;
+    struct Node *header;
+    header = createHeader();
+    //printf("Hello World");
+    insert(header ,10);
+    insert(header ,20);
+    insert(header ,30);
+    insert(header ,8);
+    printList(header);
+    return 0;
+
+    //return 0;
+}
