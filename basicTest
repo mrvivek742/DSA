@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+struct Node{
+    int data;
+    Node *next;
+    
+};
+int main()
+{
+    int a ,b;
+    cin>>a;
+    cin>>b;
+   Node *n1;
+   Node *n2;
+   n1=new Node;
+   n2=new Node;
+   n1->next=nullptr;
+   n2->next=nullptr;
+   n1->data=a;
+   n2->data=b;
+   cout<<(n1->data)+(n2->data);
+}
