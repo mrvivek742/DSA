@@ -1,0 +1,28 @@
+#include <stdio.h>
+#define max 5
+
+int stack[max];
+int top = -1;
+
+void push(){
+    int value;
+    scanf("%d",&value);
+    top++;
+    stack[top] = value;
+}
+
+void pop(){
+    printf("\nThe %d element is popped from stack",stack[top]);
+    top--;
+}
+
+void peek(){
+    printf("\nThe %d element at top of the stack",stack[top]);
+}
+
+void display(){
+    printf("\nThe elements in stack are\n");
+    for(int i=top;i>=0;i--){
+        printf("%d ",stack[i]);
+    }
+}
