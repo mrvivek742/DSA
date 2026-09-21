@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 10 // Maximum size of the shared array
+
+int arr[MAX];
+int top1 = -1;       // Top pointer for Stack 1 (grows forward)
+int top2 = MAX;      // Top pointer for Stack 2 (grows backward)
+
+// Push an element onto Stack 1
+void push1(int data) {
+    // Check if space is available between the two stacks
+    if (top1 < top2 - 1) {
+        top1++;
+        arr[top1] = data;
+        printf("Pushed %d to Stack 1\n", data);
+    } else {
+        printf("Stack Overflow! Cannot push %d to Stack 1.\n", data);
+    }
+}
+
+// Push an element onto Stack 2
+void push2(int data) {
+    // Check if space is available between the two stacks
+    if (top1 < top2 - 1) {
+        top2--;
+        arr[top2] = data;
+        printf("Pushed %d to Stack 2\n", data);
+    } else {
+        printf("Stack Overflow! Cannot push %d to Stack 2.\n", data);
+    }
+}
+
+// Pop an element from Stack 1
+int pop1() {
+    if (top1 >= 0) {
+        int popped_val = arr[top1];
+        top1--;
+        return popped_val;
+    } else {
+        printf("Stack 1 Underflow!\n");
+        return -1; // Return error indicator
+    }
+}
+
+// Pop an element from Stack 2
+int pop2() {
+    if (top2 < MAX) {
+        int popped_val = arr[top2];
+        top2++;
+        return popped_val;
+    } else {
+        printf("Stack 2 Underflow!\n");
+        return -1; // Return error indicator
+    }
+}
+
+// Display elements of both stacks
+void display() {
+    int i;
+    
+    printf("\nStack 1 elements: ");
+    if (top1 == -1) {
+        printf("Empty");
+    } else {
+        for (i = 0; i <= top1; i++) {
+            printf("%d ", arr[i]);
+        }
+    }
+
+    printf("\nStack 2 elements: ");
+    if (top2 == MAX) {
+        printf("Empty");
+    } else {
+        for (i = MAX - 1; i >= top2; i--) {
+            printf("%d ", arr[i]);
+        }
+    }
+    printf("\n\n");
+}
+
+int main() {
+    printf("--- Pushing Elements ---\n");
+    push1(10);
+    push1(20);
+    push1(30);
+    
+    push2(90);
+    push2(80);
+    push2(70);
+    
+    display();
+
+    printf("--- Popping Elements ---\n");
+    printf("Popped from Stack 1: %d\n", pop1());
+    printf("Popped from Stack 2: %d\n", pop2());
+    
+    display();
+
+    // Testing dynamic space optimization:
+    // Pushing more items to Stack 1 to use remaining free slots
+    printf("--- Utilizing remaining space for Stack 1 ---\n");
+    push1(40);
+    push1(50);
+    push1(60);
+    push1(70); // This should cause an overflow since total max size is 10
+    
+    display();
+
+    return 0;
+}
