@@ -1,0 +1,20 @@
+#include<stdio.h>
+int main(){
+int tree[100];
+int n;
+printf("Enter the number of nodes\n");
+sacnf("%d",&n);
+for(int i=0;i<n;i++){
+sacnf("%d",&tree[i]);
+}
+for(int i=0;i<n;i++){
+printf("tree node: %d value: %d\n",i,tree[i]);
+if(2*i+1<n){
+printf("left child: %d\n",tree[2*i+1]);
+}
+if(2*i+2<n){
+printf("right chuild: %d\n",tree[2*i+2]);
+}
+}
+return 0;
+}
